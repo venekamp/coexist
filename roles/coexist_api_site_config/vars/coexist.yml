@@ -1,0 +1,6 @@
+---
+apache_templates:
+  - { src: coexist.conf.j2, dest: "/etc/httpd/conf.d/{{ coexist_fqdn }}.conf" }
+
+apache_default_site:
+  - 000-default

@@ -1,0 +1,4 @@
+---
+# handlers file for generic
+- name: Restart Apache
+  systemd: daemon_reload=yes name=httpd state=restarted enabled=yes

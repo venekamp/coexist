@@ -1,0 +1,7 @@
+WSGIPythonHome {{ wsgi_root_path }}/venv
+WSGIDaemonProcess {{ coexist_fqdn }} user=apache group=apache processes=2 threads=15
+WSGIApplicationGroup %{GLOBAL}
+WSGIProcessGroup {{ coexist_fqdn }}
+WSGIScriptAlias / {{ wsgi_root_path }}/coexist_api.wsgi
+#WSGIPassAuthorization On
+#WSGIScriptReloading On

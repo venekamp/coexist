@@ -1,0 +1,88 @@
+#######################################################################
+{{ ansible_managed | comment('plain') }}
+#######################################################################
+{% if use_https %}
+<VirtualHost *:80>
+    ServerName {{ coexist_fqdn }}
+    Redirect / https://{{ coexist_fqdn }}/
+</VirtualHost>
+{% endif %}
+
+<VirtualHost *:{{ http_port }}>
+{#
+    # by adding the protocol to the ServerName, we can
+    # fix the HTTP->HTTPS translation issue when we pass
+    # the LB. If we don't, the LB will connect using HTTP
+    # and mod_mellon will discern a mismatch between the
+    # incoming connection and the protocol specified in
+    # the SAML data
+#}
+    #ServerName {{ http_proto }}://{{ coexist_fqdn }}
+    ServerName http://localhost
+    ServerAdmin {{ mail.admin_email }}
+
+    DocumentRoot {{ html_document_root }}
+
+    RewriteEngine on
+
+    <Directory "{{ html_document_root }}">
+        Options Indexes FollowSymLinks
+        DirectoryIndex index.html
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    <Directory {{ wsgi_root_path }}>
+        # Options +ExecCGI
+        # AddHandler wsgi-script .wsgi
+        Require all granted
+    </Directory>
+
+    ErrorLog /var/log/httpd/error_log
+    CustomLog /var/log/httpd/access_log combin
+
+    BrowserMatch "MSIE [2-6]" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
+    # MSIE 7 and newer should be able to use keepalive
+    BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+
+	    WSGIDaemonProcess server user=apache group=apache threads=5 python-home=/var/www/wsgi/venv
+    WSGIScriptAlias / /var/www/wsgi/coexist_api.wsgi
+    WSGIPassAuthorization On
+
+    OIDCProviderMetadataURL https://accounts.google.com/.well-known/openid-configuration
+    OIDCClientID 979237257081-0260mpm5bo3416a1ip0jonqslm6v7tfo.apps.googleusercontent.com
+    OIDCClientSecret 4cieAI5rYfZdsS4dSK5nhyDW
+    OIDCRedirectURI http://localhost:9000/auth/redirect_uri
+
+    OIDCCryptoPassphrase dsfjkfksdafdshfhua 
+
+    OIDCScope "openid email profile"
+    OIDCClaimPrefix OIDC-CLAIM-
+
+    # Try uncommenting this if you get errors like these "OpenID Connect Provider error: Error in handling response type."
+    # OIDCProviderTokenEndpointAuth client_secret_post
+
+    #OIDCRedirectURI http://coexist.venekamp.eu:9000/auth/redirect_url
+    # OIDCSSLValidateServer On
+    # OIDCResponseType code
+
+    <Location "/">
+        OIDCUnAuthAction pass
+        AuthType openid-connect
+        Require valid-user
+    </Location>
+
+    <Location "/auth/">
+        OIDCUnAuthAction auth
+        AuthType openid-connect
+        Require valid-user
+    </Location>
+
+{% if use_https %}
+    SSLEngine on
+    SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+{% endif %}
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet

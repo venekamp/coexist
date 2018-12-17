@@ -1,0 +1,2 @@
+---
+coexist_api_dir: "{{ wsgi_root_path }}/coexist_api"

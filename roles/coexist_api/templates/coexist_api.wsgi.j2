@@ -1,0 +1,8 @@
+import sys
+
+if "{{ wsgi_root_path }}" not in sys.path:
+  sys.path.insert(0, "{{ wsgi_root_path }}")
+
+from coexist_api import create_app
+
+application = create_app()

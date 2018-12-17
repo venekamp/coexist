@@ -1,0 +1,30 @@
+---
+# playbook to install and configure general components of Apache
+- name: purge nginx
+  yum:
+    name: nginx
+    state: absent
+
+- name: Install apache
+  yum:
+    name: httpd
+    state: present
+
+# Apache mpm modules need to be handled separately, see
+- name: Change apache worker
+  apache2_module:
+    state: "{{ item.state }}"
+    name: "{{ item.name }}"
+    ignore_configcheck: True
+  with_items:
+    - { name: "mpm_event",   state: "absent"  }
+    - { name: "mpm_prefork", state: "present" }
+  become: yes
+  notify: Restart Apache
+
+- name: Enable correct apache modules
+  apache2_module:
+    state: "{{ item.value }}"
+    name: "{{ item.key }}"
+  with_dict: "{{ modules }}"
+  notify: Restart Apache

@@ -1,0 +1,23 @@
+---
+- include_vars: coexist_api.yml
+
+- name: Make sure the coexist wsgi directroy exists.
+  file:
+    path: "{{ coexist_api_dir }}"
+    state: directory
+    mode: 0750
+    owner: apache
+    group: apache
+
+- name: Copy coexist api
+  synchronize:
+    src: /home/gerben/Private/projects/coexist/backend/coexist_api/
+    dest: "{{ coexist_api_dir }}"
+
+- name: Copy wsgi start point
+  template:
+    src: coexist_api.wsgi.j2
+    dest: "{{ wsgi_root_path }}/coexist_api.wsgi"
+    owner: apache
+    group: apache
+    mode: 0755

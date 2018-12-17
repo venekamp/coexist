@@ -1,0 +1,34 @@
+---
+ansible_ssh_common_args: '-o StrictHostKeyChecking=false'
+# note: {{playbook_dir}} would probably be nicer, but it turns out that that is
+# a relative path, which ssh doesn't understand
+ansible_ssh_user: "vagrant"
+ansible_ssh_private_key_file: "{{inventory_dir}}/../../.vagrant/id_rsa"
+
+secrets_file: "environments/docker/secrets/all.yml"
+
+# admin_email: "admin@{{base_domain}}"
+
+# servers:
+#   dns:
+#     - 8.8.8.8
+#   search:
+#     - venekamp.eu
+#   ntp:
+#     - 0.pool.ntp.org
+#     - 1.pool.ntp.org
+#     - 2.pool.ntp.org
+#     - 3.pool.ntp.org
+
+base_domain: venekamp.eu
+
+mail:
+  admin_email: "admin@{{ base_domain }}"
+
+use_https: false
+http_proto: "http{% if use_https %}s{% endif %}"
+http_port: "{% if use_https %}443{% else %}80{% endif %}"
+
+html_document_root: "/var/www/html"
+wsgi_root_path: "/var/www/wsgi"
+coexist_url_path: ""

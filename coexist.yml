@@ -1,0 +1,39 @@
+# vim:ts=2:sw=2:expandtab
+---
+- hosts: all
+  tasks:
+    - name: Read vars from secrets file {{ secrets_file }}
+      include_vars: "{{ secrets_file }}"
+      tags: always
+
+# first gather facts from all hosts that we're actually deploying to
+- hosts: all
+  become: yes
+  serial: 20
+  gather_facts: true
+
+- hosts: coexist
+  tasks:
+    - include_role:
+        name: update_packages
+    - include_role:
+        name: apache
+    - include_role:
+        name: apache_modules
+    # - include_role:
+    #     name: build_mod_wsgi
+    - include_role:
+        name: coexist_api_venv
+      tags: always
+    - include_role:
+        name: coexist_api
+    - include_role:
+        name: coexist_api_site_config
+
+- hosts: app
+  tasks:
+    - include_role:
+        name: http_apache
+    - include_role:
+        name: http_site_config
+

@@ -1,0 +1,13 @@
+---
+- name: Ensure virtualenv and setuptools are installed
+  yum:
+    name: [ python36u, python36u-pip, python36u-setuptools, python-virtualenv ]
+    state: present
+
+- name: Install python packages
+  pip:
+    name: [ pip, flask, flask-restplus ]
+    virtualenv: "{{ wsgi_root_path }}/venv"
+    extra_args: --upgrade
+    virtualenv_python: python3.6m
+  become_user: apache

@@ -1,0 +1,30 @@
+---
+- include_vars: "{{ inventory_hostname_short }}.yml"
+
+# Link all installed applications and configurations and enable the COManage site
+
+- name: Create coexist webroot
+  file:
+    dest: "{{ html_document_root }}"
+    state: directory
+    owner: root
+    mode: 0755
+
+- name: Push the template for the coexist web app
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items: "{{ apache_templates }}"
+  become: yes
+  notify: Restart Apache
+
+# - name: Enable coexist site
+#   command: a2ensite coexist
+#   become: yes
+#   notify: Restart Apache
+
+# - name: disable the default site
+#   command: a2dissite "{{ item }}"
+#   with_items: "{{ apache_default_site }}"
+#   become: yes
+#   notify: Restart Apache

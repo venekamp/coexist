@@ -1,0 +1,12 @@
+---
+modules:
+  #  status: absent
+  cgid: absent
+  #  cgi: absent
+  actions: present
+  alias: present
+  rewrite: present
+  authn_core: present
+  authz_user: present
+  #  ssl: present
+  php: absent
