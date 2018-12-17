@@ -33,8 +33,8 @@
     </Directory>
 
     <Directory {{ wsgi_root_path }}>
-        # Options +ExecCGI
-        # AddHandler wsgi-script .wsgi
+        WSGIProcessGroup server
+        WSGIApplicationGroup %{GLOBAL}
         Require all granted
     </Directory>
 
@@ -45,7 +45,7 @@
     # MSIE 7 and newer should be able to use keepalive
     BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
 
-	    WSGIDaemonProcess server user=apache group=apache threads=5 python-home=/var/www/wsgi/venv
+    WSGIDaemonProcess server user=apache group=apache threads=5 python-home=/var/www/wsgi/venv
     WSGIScriptAlias / /var/www/wsgi/coexist_api.wsgi
     WSGIPassAuthorization On
 
