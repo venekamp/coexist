@@ -9,7 +9,6 @@ class COs(Resource):
     '''Let users login and retieve some of their provided claims.'''
     @api.doc(description='Let the user log in and retrieve user info.')
     def get(self):
-        print(request.args['a'])
         print(request.headers)
         print(request.cookies)
         return redirect('http://nos.nl/', code=302)
