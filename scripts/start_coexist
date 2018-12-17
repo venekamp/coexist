@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+docker network ls | grep -wq coexist
+
+rc=$?
+
+if [[ $rc -ne 0 ]]; then
+   echo "Creating network first"
+   docker network create --attachable --driver bridge --gateway 172.24.1.1 --subnet 172.24.1.0/24 coexist
+fi
+
+docker run -d --name coexist --network=coexist --ip 172.24.1.10 --dns=8.8.8.8 -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /tmp:exec --add-host coexist:172.24.1.10 -i -p 9000:80 -h coexist coexist

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker build --tag coexist --build-arg ssh_pub_key="$(cat ./id_rsa.pub)" docker/centos7
