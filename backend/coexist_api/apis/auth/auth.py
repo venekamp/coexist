@@ -11,7 +11,8 @@ class COs(Resource):
     def get(self):
         print(request.headers)
         print(request.cookies)
-        return redirect('http://nos.nl/', code=302)
+#        return redirect('http://nos.nl/', code=302)
+        return {'REMOTE_USER': request.remote_user}
 
 @api.route('/logout')
 @api.doc(responses={404: 'CO not found'})
