@@ -37,3 +37,8 @@ Once built, use
 ./scripts/start_coexist
 ```
 to start the coexist container.
+
+With a running container, provision as follows:
+```
+ansible-playbook -i environments/docker/inventory --limit coexist coexist.yml
+```
