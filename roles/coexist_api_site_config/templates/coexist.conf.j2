@@ -50,8 +50,8 @@
     WSGIPassAuthorization On
 
     OIDCProviderMetadataURL https://accounts.google.com/.well-known/openid-configuration
-    OIDCClientID 979237257081-0260mpm5bo3416a1ip0jonqslm6v7tfo.apps.googleusercontent.com
-    OIDCClientSecret 4cieAI5rYfZdsS4dSK5nhyDW
+    OIDCClientID {{ google_client_id }}
+    OIDCClientSecret {{ google_client_secret }}
     OIDCRedirectURI http://localhost:9000/auth/redirect_uri
 
     OIDCCryptoPassphrase dsfjkfksdafdshfhua 
