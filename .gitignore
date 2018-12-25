@@ -2,6 +2,7 @@
 /id_rsa.pub
 /coexist.retry
 /environments/docker/secrets/
+/docker/centos7/centos7-systemd-sshd/ssh/
 
 .mypy_cache/
 

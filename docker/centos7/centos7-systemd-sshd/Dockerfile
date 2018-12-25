@@ -35,7 +35,8 @@ WORKDIR /home/vagrant
 
 # Configure SSH access
 RUN mkdir -p /home/vagrant/.ssh
-RUN echo "${ssh_pub_key}" >> /home/vagrant/.ssh/authorized_keys
+COPY ssh/id_rsa.pub /home/vagrant/.ssh/authorized_keys
+#RUN echo "${ssh_pub_key}" | sed -e "s/'//" >> /home/vagrant/.ssh/authorized_keys
 RUN chown -R vagrant: /home/vagrant/.ssh
 RUN echo -n 'vagrant:vagrant' | chpasswd
 
