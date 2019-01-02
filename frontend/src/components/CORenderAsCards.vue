@@ -2,7 +2,13 @@
   <VContainer grid-list-md text-cs-center fluid>
     <VLayout row>
       <VFlex xs6 v-for="(CO, index) in COs" :key="index">
-        <VCard class="card">
+        <VHover>
+        <VCard
+          slot-scope="{ hover }"
+          :class="`elevation-${hover ? 12 : 2}`"
+          @click="CardSelected(CO.id)"
+          class="card"
+        >
           <VCardMedia class="card-media">
             <VImg :src="CO.logo" contain height="100px"></VImg>
           </VCardMedia>
@@ -35,6 +41,7 @@
             </VContainer>
           </VCardText>
         </VCard>
+        </VHover>
       </VFlex>
     </VLayout>
   </VContainer>
@@ -42,7 +49,12 @@
 
 <script>
 export default {
-  props: ['COs']
+  props: ['COs'],
+  methods: {
+    CardSelected(id) {
+      console.log(id + ': card clicked.');
+    }
+  }
 };
 </script>
 
