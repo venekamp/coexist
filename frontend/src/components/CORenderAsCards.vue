@@ -1,7 +1,7 @@
 <template>
   <VContainer grid-list-md text-cs-center fluid>
     <VLayout row>
-      <VFlex xs6 v-for="(CO, index) in COs" :key="index">
+      <VFlex v-for="(CO, index) in COs" :key="index">
         <VHover>
         <VCard
           slot-scope="{ hover }"
@@ -9,9 +9,9 @@
           @click="CardSelected(CO.id)"
           class="card"
         >
-          <VCardMedia class="card-media">
+          <div class="card-image">
             <VImg :src="CO.logo" contain height="100px"></VImg>
-          </VCardMedia>
+          </div>
 
           <VCardTitle primary-title class="subheading font-weight-medium">
             {{ CO.name }}
@@ -62,8 +62,8 @@ export default {
 .card
   width: 24ex
 
-.card-media
-  padding: 0 1em
+.card-image
+  padding: 1em 1em 0
 
 .card-description
   color: #484850
@@ -77,5 +77,5 @@ export default {
 
 .card-element-separator
   margin 0 1em
-  border: 1px solid #bbb
+  border: 1px solid #b8b8b8
 </style>
