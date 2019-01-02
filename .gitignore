@@ -4,6 +4,7 @@
 /environments/docker/secrets/
 /docker/centos7/centos7-systemd-sshd/ssh/
 
+node_modules/
 .mypy_cache/
 
 *.swp
