@@ -9,7 +9,7 @@
 
           <VCardTitle primary-title class="subheading font-weight-medium">
             {{ CO.name }}
-        </VCardTitle>
+          </VCardTitle>
 
           <hr class="card-element-separator" />
 
