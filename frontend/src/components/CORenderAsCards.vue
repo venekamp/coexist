@@ -3,44 +3,46 @@
     <VLayout row>
       <VFlex v-for="(CO, index) in COs" :key="index">
         <VHover>
-        <VCard
-          slot-scope="{ hover }"
-          :class="`elevation-${hover ? 12 : 2}`"
-          @click="CardSelected(CO.id)"
-          class="card"
-        >
-          <div class="card-image">
-            <VImg :src="CO.logo" contain height="100px"></VImg>
-          </div>
+          <VCard
+            slot-scope="{ hover }"
+            :class="`elevation-${hover ? 12 : 2}`"
+            @click="CardSelected(CO.id)"
+            class="card"
+          >
+            <div class="card-image">
+              <VImg :src="CO.logo" contain height="100px">
 
-          <VCardTitle primary-title class="subheading font-weight-medium">
-            {{ CO.name }}
-          </VCardTitle>
+              </VImg>
+            </div>
 
-          <hr class="card-element-separator" />
+            <VCardTitle primary-title class="subheading font-weight-medium">
+              {{ CO.name }}
+            </VCardTitle>
 
-          <VCardText>
-            <VContainer fluid pa-0>
-              <VLayout row>
-                <VFlex xs12 class="card-description">
-                  {{ CO.description }}
-                </VFlex>
-              </VLayout>
+            <hr class="card-element-separator" />
 
-              <VLayout row>
-                <VFlex xs6 class="font-weight-medium card-date-label">
-                  <div>start date:</div>
-                  <div>end date:</div>
-                </VFlex>
-                <VFlex xs6 class="font-italic">
-                  <div>{{ CO.start }}</div>
-                  <div>{{ CO.end }}</div>
-                </VFlex>
-              </VLayout>
+            <VCardText>
+              <VContainer fluid pa-0>
+                <VLayout row>
+                  <VFlex xs12 class="card-description">
+                    {{ CO.description }}
+                  </VFlex>
+                </VLayout>
 
-            </VContainer>
-          </VCardText>
-        </VCard>
+                <VLayout row>
+                  <VFlex xs6 class="font-weight-medium card-date-label">
+                    <div>start date:</div>
+                    <div>end date:</div>
+                  </VFlex>
+                  <VFlex xs6 class="font-italic">
+                    <div>{{ CO.start }}</div>
+                    <div>{{ CO.end }}</div>
+                  </VFlex>
+                </VLayout>
+
+              </VContainer>
+            </VCardText>
+          </VCard>
         </VHover>
       </VFlex>
     </VLayout>
@@ -61,6 +63,8 @@ export default {
 <style scope lang="stylus">
 .card
   width: 24ex
+.card:hover
+  cursor: pointer
 
 .card-image
   padding: 1em 1em 0
