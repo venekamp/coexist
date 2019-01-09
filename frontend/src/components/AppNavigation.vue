@@ -1,5 +1,5 @@
 <template>
-  <VToolbar height=80 dark color="primary">
+  <VToolbar flat height=80 dark color="primary">
     <VMenu :nudge-bottom="54">
 
       <VToolbarTitle slot="activator">
