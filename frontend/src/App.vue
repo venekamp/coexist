@@ -1,8 +1,8 @@
 <template>
   <VApp>
-    <AppNavigation></AppNavigation>
+    <AppNavigation v-if="auth"></AppNavigation>
 
-    <div class="content">
+    <div :class="embeddedContent()">
       <RouterView></RouterView>
     </div>
 
@@ -21,6 +21,20 @@ export default {
     return {
       //
     };
+  },
+  computed: {
+    auth() {
+      return this.$store.state.hasAuthenticatedUser;
+    }
+  },
+  methods: {
+    embeddedContent() {
+      if (this.$store.state.hasAuthenticatedUser) {
+        return 'content';
+      }
+
+      return '';
+    }
   }
 };
 </script>
