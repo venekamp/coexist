@@ -1,7 +1,7 @@
 <template>
-  <VContainer grid-list-md text-cs-center fluid>
+  <VContainer grid-list-xl fluid>
     <VLayout row wrap>
-      <VFlex v-for="(CO, index) in COs" :key="index">
+      <VFlex v-for="(CO, index) in COs" :key="index" xs3>
         <COCard :CO="CO"></COCard>
       </VFlex>
     </VLayout>
