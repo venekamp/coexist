@@ -1,3 +1,7 @@
+This repo is archived and will not see any active development.
+
+
+
 This project has yet to start. It will be an attempt to create a web
 app that manages groups of people and those people authorize themselves
 with an identity they already own, e.g. at their organization or
